@@ -39,7 +39,7 @@ $ npm run build // this will compile the react code using webpack and generate a
 $ npm start // this will run the files in docs
 ```
 
-## Server-side usage(PORT: 8000)
+## Server-side usage(PORT: 3001)
 Created using Nodejs.
 
 start
