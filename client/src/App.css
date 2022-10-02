@@ -166,7 +166,8 @@ body {
   /* padding: 1px 1.7em; */
   padding: 0 0.7em;
   font-size: 1em;
-  border-right: 1px dotted #607d8b;
+  border-right: 1px #607d8b;
+  /* dotted */
 
   outline: none;
   font-family: "Open Sans", sans-serif;

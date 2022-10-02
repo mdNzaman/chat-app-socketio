@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ScrollToBottom from 'react-scroll-to-bottom'
 // import "./App.css";
 
 export default function Chat({socket, name, room}){
@@ -10,6 +11,7 @@ export default function Chat({socket, name, room}){
 
 const [currentMessage,setCurrentMessage] = useState("");
 const [messageList,setMessageList] = useState([]);
+// const [renderChat, setRenderChat] = useState(false);
 
 const sendMessgae = async ()=>{
     if(currentMessage!==""){
@@ -27,6 +29,7 @@ const sendMessgae = async ()=>{
             [...list, messageData])
         setCurrentMessage("");
 // {console.log("1"+setMessageList);}
+        // setRenderChat(true);
     }
 };
 
@@ -34,7 +37,7 @@ useEffect(()=>{
     socket.on("receive_message",(data)=>{
         // data = "";
        
-        console.log(data);
+        console.log("data "+ data);
         setMessageList((list)=>
             [...list,data]
         );
@@ -47,10 +50,15 @@ useEffect(()=>{
         <div className='chat-header'>
             <p>Live Chat</p>
         </div>
+        {/* {renderChat ? ( */}
 
         <div className='chat-body'>
+            
+        {/* <div > */}
 
             {console.log(messageList)}  
+            {console.log("bug")}
+            <ScrollToBottom className="message-container">
 
             {messageList.map((messageContent)=>{
                 // return <h1>{messageContent.message}</h1>
@@ -64,13 +72,17 @@ useEffect(()=>{
                             <p id="time">{messageContent.time}</p>
                             {/* {console.log(messageContent.author)}
                             {console.log(messageContent.time)} */}
+                            
                             <p id="author">{messageContent.author}</p>
                         </div>
                     </div>
                 </div>
                 )
             })}
+            </ScrollToBottom>
         </div>
+        
+        {/* ):( */}
 
         <div className='chat-footer'>
         <input type="text" value={currentMessage} placeholder="Chat comes here..." onChange={(event)=>{
@@ -80,6 +92,7 @@ useEffect(()=>{
         }}/>
         <button onClick={sendMessgae} style={myStyle}>&#9658;</button>
         </div>
+        {/* )} */}
         
     </div>
   )
