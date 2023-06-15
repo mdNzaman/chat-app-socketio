@@ -4,6 +4,7 @@
   background: #fff;
   color: #212121;
   font-family: "Open Sans", sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
   display: grid;
   place-items: center;
 }
@@ -12,6 +13,7 @@ body {
   padding: 0%;
 }
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap'); */
 
 .joinChatContainer {
   display: flex;
