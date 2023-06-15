@@ -14,7 +14,6 @@ export default function Chat({ socket, name, room }) {
 
   const sendMessgae = async () => {
     if (currentMessage !== "") {
-
       const messageData = {
         room: room,
         author: name,
@@ -38,13 +37,16 @@ export default function Chat({ socket, name, room }) {
 
   useEffect(() => {
     console.log("check");
-    socket.on("receive_message", (data) => {
-      // data = "";
-
+    const receiveMessage = (data) => {
       console.log("data ", data);
       setMessageList((list) => [...list, data]);
-      // {console.log("2"+setMessageList);}
-    });
+    };
+
+    socket.on("receive_message", receiveMessage);
+
+    return () => {
+      socket.off("receive_message", receiveMessage);
+    };
   }, []);
 
   return (
@@ -61,11 +63,12 @@ export default function Chat({ socket, name, room }) {
         {console.log("bug")}
 
         <ScrollToBottom className="message-container">
-          {messageList.map((messageContent,index) => {
+          {messageList.map((messageContent, index) => {
             // return <h1>{messageContent.message}</h1>
             return (
               <div
-                className="message" key={index}
+                className="message"
+                key={index}
                 id={name === messageContent.author ? "you" : "other"}
               >
                 <div>
@@ -92,22 +95,22 @@ export default function Chat({ socket, name, room }) {
         {/* <div>
         </div> */}
         {/* <div> */}
-          <input
-            type="text"
-            value={currentMessage}
-            placeholder="Chat comes here..."
-            onChange={(event) => {
-              setCurrentMessage(event.target.value);
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && sendMessgae();
-            }}
-          />
-          {/* <div> */}
-            <button onClick={sendMessgae} style={myStyle}>
-              &#9658;
-            </button>
-          {/* </div>
+        <input
+          type="text"
+          value={currentMessage}
+          placeholder="Chat comes here..."
+          onChange={(event) => {
+            setCurrentMessage(event.target.value);
+          }}
+          onKeyPress={(event) => {
+            event.key === "Enter" && sendMessgae();
+          }}
+        />
+        {/* <div> */}
+        <button onClick={sendMessgae} style={myStyle}>
+          &#9658;
+        </button>
+        {/* </div>
         </div> */}
       </div>
       {/* )} */}
